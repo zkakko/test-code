@@ -2,8 +2,9 @@
 
 import time
 import requests
+import traceback, sys
 
-host_path = "http://10.10.1.20:5000"
+host_path = "http://127.0.0.1:5000"
 jwt_token = None
 
 class ResponseFormatException(Exception):
@@ -52,6 +53,7 @@ def request_login(url):
     if not check_result(resp):
         return
 
+    global jwt_token
     jwt_token = resp["token"] 
 
 ''' /status '''
@@ -88,5 +90,6 @@ def main():
         print(f'+----------------------------------------+')
         print(f'| ERROR: {e}')
         print(f'+----------------------------------------+')
+        traceback.print_exc(file=sys.stdout)
 
 main()
